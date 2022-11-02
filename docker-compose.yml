@@ -1,0 +1,41 @@
+version: "3"
+services:
+  # API
+  api:
+    container_name: fastapi
+    build: ./api
+    command: bash -c 'while !</dev/tcp/db/6432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0'
+    volumes:
+      - ./api:/app
+    ports:
+      - 8081:8000
+    environment:
+      - DATABASE_URL=postgresql://clinique:clinique@db:6432/clinique_db
+    depends_on:
+      - db
+
+  # Database
+  db:
+    image: postgres:13-alpine
+    restart: always
+    ports:
+      - "6432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: clinique
+      POSTGRES_PASSWORD: clinique
+      POSTGRES_DB: clinique_db
+
+  # Front-End
+  website:
+    container_name: nginx
+    image: nginx:stable
+    ports: 
+      - "8080:80"
+    restart: always
+
+
+# Persistent Storage
+volumes:
+  postgres_data:
