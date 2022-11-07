@@ -2,7 +2,7 @@
 **/*.pyc
 build
 .vscode/
-.venv/
+**/.venv/
 .gitignore
 .git/
 
