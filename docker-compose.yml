@@ -4,13 +4,13 @@ services:
   api:
     container_name: fastapi
     build: ./api
-    command: bash -c 'while !</dev/tcp/db/6432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0'
+    command: uvicorn app.main:app --host 0.0.0.0
     volumes:
       - ./api:/app
     ports:
       - 8081:8000
     environment:
-      - DATABASE_URL=postgresql://clinique:clinique@db:6432/clinique_db
+      DATABASE_URL: postgresql://clinique:clinique@db/clinique_db
     depends_on:
       - db
 
@@ -39,3 +39,4 @@ services:
 # Persistent Storage
 volumes:
   postgres_data:
+
