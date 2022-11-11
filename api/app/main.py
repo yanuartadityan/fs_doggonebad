@@ -1,6 +1,7 @@
 # app/main.py
 from fastapi import FastAPI
-from app.db import database, User
+from app.carbon.db import database
+from app.carbon.models import user, stop, tram
 
 app = FastAPI(
     title="CliniqueAPI"
@@ -8,7 +9,7 @@ app = FastAPI(
 
 @app.get("/")
 async def read_root():
-    return await User.objects.all()
+    return await user.objects.all()
 
 @app.on_event("startup")
 async def startup():
@@ -16,7 +17,7 @@ async def startup():
         await database.connect()
 
     # create a dummy
-    await User.objects.get_or_create(email="tester@test.com")
+    await user.objects.get_or_create(email="tester@test.com")
 
 @app.on_event("shutdown")
 async def shutdown():
