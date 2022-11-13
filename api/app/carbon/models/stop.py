@@ -10,7 +10,7 @@ class Stop(ormar.Model):
         __tablename__ = "stop"
 
     id: int = ormar.Integer(primary_key=True)
-    initial: str = ormar.String(max_length=8)
+    initial: str = ormar.String(max_length=64)
     name: str = ormar.String(max_length=64)
     gps_lat: float = ormar.Float()
     gps_lon: float = ormar.Float()

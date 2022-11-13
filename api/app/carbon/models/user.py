@@ -1,4 +1,5 @@
 import ormar
+import uuid
 import datetime as dt
 
 from typing import Optional, Dict, Union
@@ -12,9 +13,9 @@ class User(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
-    uuid: str = ormar.UUID(uuid_format='hex', unique=True)
-    username: str = ormar.String(unique=True, nullable=False)
-    email: str = ormar.String(unique=True, nullable=False)
+    uid: uuid.UUID = ormar.UUID(default=uuid.uuid4, uuid_format='hex', unique=True)
+    username: str = ormar.String(max_length=128, unique=True, nullable=False)
+    email: str = ormar.String(max_length=128, unique=True, nullable=False)
     password: str = ormar.String(max_length=128, nullable=False)
     is_active: bool = ormar.Boolean(default=True)
     date_created: dt.datetime = ormar.DateTime()

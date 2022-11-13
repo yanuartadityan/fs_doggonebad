@@ -14,6 +14,6 @@ class Stint(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
 
     # relational
-    platform_from: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform)
-    platform_to: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform)
+    platform_from: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform, related_name="platform_to")
+    platform_to: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform, related_names="platform_from")
     type: Optional[Union[ModeType, Dict]] = ormar.ForeignKey(ModeType)

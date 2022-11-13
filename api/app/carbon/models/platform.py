@@ -12,7 +12,7 @@ class Platform(ormar.Model):
 
     # columns
     id: int = ormar.Integer(primary_key=True)
-    initial: str = ormar.String(nullable=False)
+    initial: str = ormar.String(max_length=64, nullable=False)
     is_disabled_friendly: bool = ormar.Boolean(default=False)
     is_canopy: bool = ormar.Boolean(default=False)
 
