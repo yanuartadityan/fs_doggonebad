@@ -14,12 +14,12 @@ class Tram(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
-    uuid: uuid.UUID = ormar.UUID(uuid_format='hex')
+    uid: uuid.UUID = ormar.UUID(default=uuid.uuid4, uuid_format='hex')
     reg_num: str = ormar.String(max_length=64, nullable=False)
     max_capacity: int = ormar.Integer()
-    production_date: dt.datetime = ormar.DateTime(dt.datetime.now())
-    next_service_date: dt.datetime = ormar.DateTime(dt.datetime.now())
-    overhaul_date: dt.datetime = ormar.DateTime(dt.datetime.now())
+    production_date: dt.datetime = ormar.DateTime(default=dt.datetime.now())
+    next_service_date: dt.datetime = ormar.DateTime(default=dt.datetime.now())
+    overhaul_date: dt.datetime = ormar.DateTime(default=dt.datetime.now())
 
     # potential relationship columns put here
     owner_id: Optional[Union[Owner, Dict]] = ormar.ForeignKey(Owner)

@@ -14,12 +14,12 @@ class Drive(ormar.Model):
 
     # columns
     id: int = ormar.Integer(primary_key=True)
-    uuid: uuid.UUID = ormar.UUID(uuid_format='hex', unique=True)
+    uid: uuid.UUID = ormar.UUID(default=uuid.uuid4, uuid_format='hex', unique=True)
 
     # relational
-    start_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(Stop)
-    end_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(Stop)
-    start_platform: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform)
-    end_platform: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform)
+    start_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(Stop, related_name="end_stop")
+    end_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(Stop, related_name="start_stop")
+    start_platform: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform, related_name="end_platform")
+    end_platform: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform, related_name="start_platform")
     next_platform: Optional[Union[Platform, Dict]] = [ormar.ForeignKey(Platform)]
     type: Optional[Union[ModeType, Dict]] = ormar.ForeignKey(ModeType)

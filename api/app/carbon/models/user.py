@@ -13,7 +13,7 @@ class User(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
-    uuid: uuid.UUID = ormar.UUID(uuid_format='hex', unique=True)
+    uid: uuid.UUID = ormar.UUID(default=uuid.uuid4, uuid_format='hex', unique=True)
     username: str = ormar.String(max_length=128, unique=True, nullable=False)
     email: str = ormar.String(max_length=128, unique=True, nullable=False)
     password: str = ormar.String(max_length=128, nullable=False)
