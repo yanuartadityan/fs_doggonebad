@@ -1,13 +1,23 @@
-from sqlalchemy import Boolean, Column, Integer, String
-from ..db import Base
+import ormar
+import datetime as dt
+
+from typing import Optional, Dict, Union
+from ..db import BaseMeta
+from .group import Group
 
 
-class User(Base):
-    __tablename__ = "user"
+class User(ormar.Model):
+    class Meta(BaseMeta):
+        tablename = "user"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
-    is_active = Column(Boolean, default=True)
+    # table columns
+    id: int = ormar.Integer(primary_key=True)
+    uuid: str = ormar.UUID(uuid_format='hex', unique=True)
+    username: str = ormar.String(unique=True, nullable=False)
+    email: str = ormar.String(unique=True, nullable=False)
+    password: str = ormar.String(max_length=128, nullable=False)
+    is_active: bool = ormar.Boolean(default=True)
+    date_created: dt.datetime = ormar.DateTime()
 
     # relationship columns put here
+    group_id: Optional[Union[Group, Dict]] = ormar.ForeignKey(Group)

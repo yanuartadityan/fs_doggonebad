@@ -1,15 +1,21 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
-from ..db import Base
+import ormar
+
+from typing import Optional, Union, Dict
+from ..db import BaseMeta
+from .stop_type import StopType
 
 
-class Stop(Base):
-    __tablename__ = "stop"
+class Stop(ormar.Model):
+    class Meta(BaseMeta):
+        __tablename__ = "stop"
 
-    initial = Column(String, primary_key=True, index=True)
-    name = Column(String)
-    platform = Column(String, index=True, nullable=False)
-    gps_lat = Column(String)
-    gps_lon = Column(String)
-    is_disabled_friendly = Column(Boolean)
+    id: int = ormar.Integer(primary_key=True)
+    initial: str = ormar.String(max_length=8)
+    name: str = ormar.String(max_length=64)
+    gps_lat: float = ormar.Float()
+    gps_lon: float = ormar.Float()
+    is_edge: bool = ormar.Boolean(default=False)
+    is_atm: bool = ormar.Boolean(default=False)
 
     # relationship columns put here
+    type: Optional[Union[StopType, Dict]] = ormar.ForeignKey(StopType)
