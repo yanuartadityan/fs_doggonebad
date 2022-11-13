@@ -1,14 +1,17 @@
 # app/db.py
 import databases
+import ormar
 import sqlalchemy
-from sqlalchemy.ext.declarative import declarative_base
 
 from ..config import settings
 
+# define database to be used
 database = databases.Database(settings.db_url)
+
+# derived metadata from SQLAlchemy
 metadata = sqlalchemy.MetaData()
 
-Base = declarative_base()
-
-engine = sqlalchemy.create_engine(settings.db_url)
-metadata.create_all(engine)
+# create basemodel
+class BaseMeta(ormar.ModelMeta):
+    database = database
+    metadata = metadata

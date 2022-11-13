@@ -9,7 +9,7 @@ app = FastAPI(
 
 @app.get("/")
 async def read_root():
-    return await user.objects.all()
+    return False
 
 @app.on_event("startup")
 async def startup():
@@ -17,7 +17,7 @@ async def startup():
         await database.connect()
 
     # create a dummy
-    await user.objects.get_or_create(email="tester@test.com")
+    return False
 
 @app.on_event("shutdown")
 async def shutdown():

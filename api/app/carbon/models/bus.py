@@ -6,15 +6,15 @@ from ..db import BaseMeta
 from .owner import Owner
 from .vehclass import VehClass
 
-
-class Tram(ormar.Model):
+class Bus(ormar.Model):
     class Meta(BaseMeta):
-        tablename = "tram"
+        tablename = "bus"
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
     uuid: str = ormar.UUID(uuid_format='hex')
     reg_num: str = ormar.String(max_length=64, nullable=False)
+    chassis_num: str = ormar.String(max_length=64, nullable=False)
     max_capacity: int = ormar.Integer()
     production_date: dt.datetime = ormar.DateTime(dt.datetime.now())
     next_service_date: dt.datetime = ormar.DateTime(dt.datetime.now())
