@@ -1,4 +1,5 @@
 import ormar
+import uuid
 import datetime as dt
 
 from typing import Optional, Dict, Union
@@ -12,7 +13,7 @@ class Bus(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
-    uuid: str = ormar.UUID(uuid_format='hex')
+    uuid: uuid.UUID = ormar.UUID(uuid_format='hex')
     reg_num: str = ormar.String(max_length=64, nullable=False)
     chassis_num: str = ormar.String(max_length=64, nullable=False)
     max_capacity: int = ormar.Integer()

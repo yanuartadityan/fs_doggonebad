@@ -1,4 +1,5 @@
 import ormar
+import uuid
 
 from typing import Optional, Union, Dict
 from ..db import BaseMeta
@@ -13,7 +14,7 @@ class Drive(ormar.Model):
 
     # columns
     id: int = ormar.Integer(primary_key=True)
-    uuid: str = ormar.UUID(uuid_format='hex', unique=True)
+    uuid: uuid.UUID = ormar.UUID(uuid_format='hex', unique=True)
 
     # relational
     start_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(Stop)
