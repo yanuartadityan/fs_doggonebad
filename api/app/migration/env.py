@@ -2,7 +2,7 @@ import os
 from logging.config import fileConfig
 from sqlalchemy import create_engine
 from alembic import context
-from app.carbon.db import metadata
+from app.carbon.db import metadata, get_db_url
 
 # all models
 from app.carbon.models.user import User
@@ -33,9 +33,6 @@ target_metadata = metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-
-def get_db_url():
-    return os.getenv("DATABASE_URL")
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
