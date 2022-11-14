@@ -2,7 +2,7 @@ import ormar
 import uuid
 import datetime as dt
 
-from typing import Optional, Dict, Union
+from typing import Optional, List
 from ..db import BaseMeta
 from .group import Group
 
@@ -21,4 +21,4 @@ class User(ormar.Model):
     date_created: dt.datetime = ormar.DateTime()
 
     # relationship columns put here
-    group_id: Optional[Union[Group, Dict]] = ormar.ForeignKey(Group)
+    group_id: Optional[List[Group]] = ormar.ManyToMany(Group)
