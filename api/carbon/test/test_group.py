@@ -3,6 +3,7 @@ import datetime
 
 from carbon.db import database
 from carbon.models.group import Group
+from carbon.models.user import User
 
 
 async def create():
@@ -24,6 +25,21 @@ async def create():
         group_name="SMA34 Commuting Group",
         is_max_reached=False
     )
+
+    a_group = await Group.objects.create(
+        group_name="SMA8_JakSel_Team"
+    )
+
+    labrador = await User.objects.create(
+        username="labrador",
+        email="labrador@doggonebad.xyz",
+        password="iambaddog",
+        date_created=datetime.datetime.now()
+    )
+
+    await labrador.group_id.add(a_group)
+    await labrador.group_id.add("SMA34 Commuting Group")
+
     # to read more about inserting data into the database
     # visit: https://collerek.github.io/ormar/queries/create/
 
