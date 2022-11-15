@@ -4,7 +4,7 @@ services:
   api:
     container_name: fastapi
     build: ./api
-    command: uvicorn app.main:app --host 0.0.0.0
+    command: uvicorn carbon.main:app --host 0.0.0.0
     volumes:
       - ./api:/app
     ports:
