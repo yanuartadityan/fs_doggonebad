@@ -2,17 +2,17 @@ import os
 from logging.config import fileConfig
 from sqlalchemy import create_engine
 from alembic import context
-from app.carbon.db import metadata, get_db_url
+from carbon.db import metadata, get_db_url
 
 # all models
-from app.carbon.models.user import User
-from app.carbon.models.owner import Owner
-from app.carbon.models.tram import Tram
-from app.carbon.models.bus import Bus
-from app.carbon.models.stop import Stop
-from app.carbon.models.platform import Platform
-from app.carbon.models.stint import Stint
-from app.carbon.models.drive import Drive
+from carbon.models.user import User
+from carbon.models.owner import Owner
+from carbon.models.tram import Tram
+from carbon.models.bus import Bus
+from carbon.models.stop import Stop
+from carbon.models.platform import Platform
+from carbon.models.stint import Stint
+from carbon.models.drive import Drive
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

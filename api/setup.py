@@ -1,8 +1,8 @@
 import re
 from setuptools import setup, find_packages
 
-PACKAGE_NAME = 'app'
-SOURCE_DIRECTORY = 'app'
+PACKAGE_NAME = 'carbon'
+SOURCE_DIRECTORY = 'carbon'
 SOURCE_PACKAGE_REGEX = re.compile(rf'^{SOURCE_DIRECTORY}')
 
 source_packages = find_packages(include=[SOURCE_DIRECTORY, f'{SOURCE_DIRECTORY}.*'])
@@ -16,7 +16,7 @@ setup(
     description='',
     long_description='',
     url='https://github.com/yanuartadityan/fs_doggonebad.git',
-    py_modules=['app'],
+    py_modules=['carbon'],
     packages = proj_packages,
     package_dir={PACKAGE_NAME: SOURCE_DIRECTORY},
     include_package_data=True,

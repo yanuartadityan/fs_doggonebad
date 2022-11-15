@@ -1,7 +1,8 @@
 # app/main.py
 from fastapi import FastAPI
-from app.carbon.db import database
-from app.carbon.models import user, stop, tram
+from carbon.db import database
+from carbon.models import user, stop, tram
+
 
 app = FastAPI(
     title="CliniqueAPI"

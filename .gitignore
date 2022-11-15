@@ -3,6 +3,7 @@
 build
 .vscode/
 **/.venv/
+**/*.egg-info
 .gitignore
 .git/
 
