@@ -20,6 +20,10 @@ async def create():
         is_max_reached=False
     )
 
+    await Group.objects.create(
+        group_name="SMA34 Commuting Group",
+        is_max_reached=False
+    )
     # to read more about inserting data into the database
     # visit: https://collerek.github.io/ormar/queries/create/
 
