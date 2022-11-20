@@ -11,4 +11,3 @@ class Group(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
     group_name: str = ormar.String(max_length=128)
     is_max_reached: bool = ormar.Boolean(default=False)
-

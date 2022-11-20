@@ -16,6 +16,7 @@ services:
 
   # Database
   db:
+    container_name: postgres
     image: postgres:13-alpine
     restart: always
     ports:
@@ -26,6 +27,19 @@ services:
       POSTGRES_USER: clinique
       POSTGRES_PASSWORD: clinique
       POSTGRES_DB: clinique_db
+
+  # PGAdmin
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "8082:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
   # Front-End
   website:
@@ -39,4 +53,5 @@ services:
 # Persistent Storage
 volumes:
   postgres_data:
+  pgadmin-data:
 
