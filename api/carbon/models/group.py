@@ -9,5 +9,5 @@ class Group(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
-    group_name: str = ormar.String(max_length=128)
+    group_name: str = ormar.String(max_length=128, unique=True, nullable=False)
     is_max_reached: bool = ormar.Boolean(default=False)

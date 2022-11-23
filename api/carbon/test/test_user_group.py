@@ -6,6 +6,19 @@ from carbon.models.group import Group
 from carbon.models.user import User
 
 
+async def test():
+    duracell = await User.objects.create(
+        username="dura",
+        email="duracell@gmail.com",
+        password="aaa",
+        date_created=datetime.datetime.now()
+    )
+
+    await duracell.group_id.add(await Group.objects.create(
+        group_name="alkaline"
+    ))
+
+
 async def add_relation():
     # Create some records to work with through QuerySet.create method.
     # Note that queryset is exposed on each Model's class as objects
@@ -28,6 +41,6 @@ async def with_connect(function):
     async with database:
         await function()
 
-for func in [add_relation]:
+for func in [test]:
     print(f"executing {func.__name__}")
     asyncio.run(with_connect(func))

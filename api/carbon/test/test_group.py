@@ -37,8 +37,8 @@ async def create():
         date_created=datetime.datetime.now()
     )
 
-    await labrador.group_id.add(a_group)
-    await labrador.group_id.add("SMA34 Commuting Group")
+    await labrador.groups.add(a_group)
+    await labrador.groups.add("SMA34 Commuting Group")
 
     # to read more about inserting data into the database
     # visit: https://collerek.github.io/ormar/queries/create/
