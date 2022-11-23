@@ -16,9 +16,9 @@ class User(ormar.Model):
     uid: uuid.UUID = ormar.UUID(default=uuid.uuid4, uuid_format='hex', unique=True)
     username: str = ormar.String(max_length=128, unique=True, nullable=False)
     email: str = ormar.String(max_length=128, unique=True, nullable=False)
-    password: str = ormar.String(max_length=128, nullable=False)
+    password: str = ormar.String(max_length=128, nullable=True)
     is_active: bool = ormar.Boolean(default=True)
     date_created: dt.datetime = ormar.DateTime()
 
     # relationship columns put here
-    group_id: Optional[List[Group]] = ormar.ManyToMany(Group)
+    groups: Optional[List[Group]] = ormar.ManyToMany(Group)

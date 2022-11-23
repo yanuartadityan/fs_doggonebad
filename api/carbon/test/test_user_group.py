@@ -1,23 +1,42 @@
 import asyncio
 import datetime 
 
+from asyncpg.exceptions import UniqueViolationError
 from carbon.db import database
 from carbon.models.group import Group
 from carbon.models.user import User
+
+
+async def test():
+    duracell, created = await User.objects.get_or_create(
+        username="dura",
+        email="duracell@gmail.com",
+        password="aaa"
+    )
+       
+    await duracell.groups.add(await Group.objects.create(
+        group_name="alkaline"
+    ))
 
 
 async def add_relation():
     # Create some records to work with through QuerySet.create method.
     # Note that queryset is exposed on each Model's class as objects
 
+    await User.objects.create(
+        username="labrador",
+        email="labrador@doggo.com",
+        password="doggo"
+    )
+    
     labrador = await User.objects.get(username="labrador")
     new_group = await Group.objects.get(id=13)
-    await labrador.group_id.add(new_group)
+    await labrador.groups.add(new_group)
 
     chihuahua = await User.objects.get(username="chihuahua")
-    await labrador.group_id.add(await Group.objects.get(id=5))
-    await labrador.group_id.add(await Group.objects.get(id=12))
-    await labrador.group_id.add(await Group.objects.get(id=7))
+    await labrador.groups.add(await Group.objects.get(id=5))
+    await labrador.groups.add(await Group.objects.get(id=12))
+    await labrador.groups.add(await Group.objects.get(id=7))
 
     # to read more about inserting data into the database
     # visit: https://collerek.github.io/ormar/queries/create/
@@ -28,6 +47,9 @@ async def with_connect(function):
     async with database:
         await function()
 
-for func in [add_relation]:
+for func in [
+    test,
+    add_relation
+]:
     print(f"executing {func.__name__}")
     asyncio.run(with_connect(func))
