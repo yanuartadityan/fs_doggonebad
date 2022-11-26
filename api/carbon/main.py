@@ -1,16 +1,12 @@
 # app/main.py
 from fastapi import FastAPI
 from carbon.db import database
-from carbon.models import user, stop, tram
 
 
 app = FastAPI(
     title="CliniqueAPI"
 )
 
-@app.get("/")
-async def read_root():
-    return False
 
 @app.on_event("startup")
 async def startup():
@@ -24,4 +20,3 @@ async def startup():
 async def shutdown():
     if database.is_connected:
         await database.disconnect()
-
