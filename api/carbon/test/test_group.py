@@ -2,8 +2,8 @@ import asyncio
 import datetime 
 
 from carbon.db import database
-from carbon.models.group import Group
-from carbon.models.user import User
+from carbon.model import Group
+from carbon.model import User
 
 
 async def create():
