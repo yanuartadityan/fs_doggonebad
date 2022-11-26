@@ -3,8 +3,8 @@ import datetime
 
 from asyncpg.exceptions import UniqueViolationError
 from carbon.db import database
-from carbon.models.group import Group
-from carbon.models.user import User
+from carbon.model import Group
+from carbon.model import User
 
 
 async def test():
