@@ -4,8 +4,7 @@ from sqlalchemy import create_engine
 from alembic import context
 from carbon.db import metadata, get_db_url
 
-# all models
-from carbon.models import *
+from carbon.model import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
