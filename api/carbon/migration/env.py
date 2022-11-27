@@ -4,7 +4,9 @@ from sqlalchemy import create_engine
 from alembic import context
 from carbon.db import metadata, get_db_url
 
-from carbon.model import *
+from carbon.model import User, Group, Owner
+from carbon.model import Stop, Platform, Stint, ModeType, PlatformType, StopType
+from carbon.model import Bus, Tram, VehClass, Drive
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

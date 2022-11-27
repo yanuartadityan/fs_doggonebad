@@ -12,7 +12,8 @@ class Group(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
-    group_name: str = ormar.String(max_length=128, unique=True, nullable=False)
+    uid: uuid.UUID = ormar.UUID(default=uuid.uuid4, uuid_format='hex', unique=True)
+    group_name: str = ormar.String(max_length=128, nullable=False)
     is_max_reached: bool = ormar.Boolean(default=False)
     
 
