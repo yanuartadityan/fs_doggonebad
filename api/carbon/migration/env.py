@@ -4,7 +4,6 @@ from sqlalchemy import create_engine
 from alembic import context
 from carbon.db import metadata, get_db_url
 
-# all models
 from carbon.model import *
 
 # this is the Alembic Config object, which provides
