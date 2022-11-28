@@ -8,7 +8,7 @@ import uuid
 from carbon.db import database
 from carbon.model import User, Group, Owner
 from carbon.model import Stop, Platform, Stint, ModeType, PlatformType, StopType
-from carbon.model import Bus, Tram, VehClass, Drive
+from carbon.model import Bus, Tram, VehType, Drive
 
 
 DUMMY_DOMAIN = [
@@ -93,7 +93,7 @@ async def clean_all():
 
     await Bus.objects.delete(each=True)
     await Tram.objects.delete(each=True)
-    await VehClass.objects.delete(each=True)
+    await VehType.objects.delete(each=True)
     await Drive.objects.delete(each=True)
 
 
@@ -141,12 +141,28 @@ async def populate_stops():
     
     # populate Stop
     for stop in DUMMY_STOP:
-        await Stop.objects.create(
+        # current stop
+        curr_stop = Stop(
             initial=stop[0],
             name=stop[1],
             gps_lat=random.uniform(-6.8, -5.4),
             gps_lon=random.uniform(104.0, 110.0)
         )
+
+        # save the stop (update database)
+        await curr_stop.save()
+
+        # populate Platform
+        for plat_idx in range(stop[2]):
+            curr_platform = Platform(
+                initial=f"{stop[0]}_{plat_idx}",
+                is_disabled_friendly=random.choice([True, False]),
+                is_canopy=random.choice([True, False]),
+                stop_id=curr_stop
+            )
+
+            await curr_platform.save()
+
 
 async def populate_vehicles():
     pass
@@ -156,7 +172,7 @@ async def populate_constant():
     # populate stop type
     for stype in DUMMY_STOP_TYPE:
         await StopType.objects.create(
-            id=stype[0],
+            type=stype[0],
             label=stype[1],
             description="reserved..."
         )
@@ -164,7 +180,7 @@ async def populate_constant():
     # populate mode type
     for mtype in DUMMY_MODE_TYPE:
         await ModeType.objects.create(
-            id=mtype[0],
+            type=mtype[0],
             label=mtype[1],
             description="reserved..."
         )
@@ -172,13 +188,12 @@ async def populate_constant():
     # populate platform type
     for ptype in DUMMY_PLATFORM_TYPE:
         await PlatformType.objects.create(
-            id=ptype[0],
+            type=ptype[0],
             label=ptype[1],
             description="reserved..."
         )
 
     # populate vehicle class
-    pass
 
 async def with_connect(function):
     async with database:
@@ -186,9 +201,9 @@ async def with_connect(function):
 
 for func in [
     clean_all,
+    populate_constant,
     populate_users,
     populate_stops,
-    populate_constant
 ]:
     print(f"executing {func.__name__}...")
     asyncio.run(with_connect(func))

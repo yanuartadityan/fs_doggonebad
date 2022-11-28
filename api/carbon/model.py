@@ -53,6 +53,7 @@ class StopType(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
+    type: int = ormar.Integer()
     label: str = ormar.String(max_length=64)
     description: str = ormar.String(max_length=255)
 
@@ -79,6 +80,7 @@ class PlatformType(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
+    type: int = ormar.Integer()
     label: str = ormar.String(max_length=64)
     description: str = ormar.String(max_length=255)
 
@@ -104,6 +106,7 @@ class ModeType(ormar.Model):
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
+    type: int = ormar.Integer()
     label: str = ormar.String(max_length=64)
     description: str = ormar.String(max_length=255)
 
@@ -138,12 +141,13 @@ class Stint(ormar.Model):
     type: Optional[Union[ModeType, Dict]] = ormar.ForeignKey(ModeType)
 
 
-class VehClass(ormar.Model):
+class VehType(ormar.Model):
     class Meta(BaseMeta):
-        tablename = "vehclass"
+        tablename = "vehtype"
 
     # table columns
     id: int = ormar.Integer(primary_key=True)
+    type: int = ormar.Integer()
     label: str = ormar.String(max_length=64)
     description: str = ormar.String(max_length=255)
 
@@ -163,7 +167,7 @@ class Tram(ormar.Model):
 
     # potential relationship columns put here
     owner_id: Optional[Union[Owner, Dict]] = ormar.ForeignKey(Owner)
-    class_id: Optional[Union[VehClass, Dict]] = ormar.ForeignKey(VehClass)
+    class_id: Optional[Union[VehType, Dict]] = ormar.ForeignKey(VehType)
 
 
 class Bus(ormar.Model):
@@ -182,4 +186,4 @@ class Bus(ormar.Model):
 
     # potential relationship columns put here
     owner_id: Optional[Union[Owner, Dict]] = ormar.ForeignKey(Owner)
-    class_id: Optional[Union[VehClass, Dict]] = ormar.ForeignKey(VehClass)
+    class_id: Optional[Union[VehType, Dict]] = ormar.ForeignKey(VehType)
