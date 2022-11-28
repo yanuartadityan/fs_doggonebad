@@ -39,21 +39,34 @@ DUMMY_GROUP = [
 ]
 
 DUMMY_STOP_TYPE = [
-    [0, "Reserved"],
-    [2, "Reserved"],
-    [4, "Reserved"],
-    [8, "Reserved"]
+    [1, "Bus"],
+    [2, "KRL"],
+    [3, "Reserved"],
+    [4, "MRT"],
+    [5, "Reserved"],
+    [6, "Reserved"],
+    [7, "Reserved"],
+    [8, "LRT"],
+    [9, "Reserved"],
+    [10, "Reserved"],
+    [11, "Reserved"],
+    [12, "Reserved"],
+    [13, "Reserved"],
+    [14, "Reserved"],
+    [15, "Reserved"],
+    [16, "Reserved"]
+
 ]
 
 DUMMY_MODE_TYPE = [
-    [0, "Bus"],
+    [1, "Bus"],
     [2, "KRL"],
     [4, "MRT"],
     [8, "KA"],
 ]
 
 DUMMY_PLATFORM_TYPE = [
-    [0, "Roadside"],
+    [1, "Roadside"],
     [2, "Underground"],
     [4, "Multi-Stories"],
     [8, "Reserved"],
@@ -172,7 +185,7 @@ async def populate_constant():
     # populate stop type
     for stype in DUMMY_STOP_TYPE:
         await StopType.objects.create(
-            type=stype[0],
+            id=stype[0],
             label=stype[1],
             description="reserved..."
         )
@@ -180,7 +193,7 @@ async def populate_constant():
     # populate mode type
     for mtype in DUMMY_MODE_TYPE:
         await ModeType.objects.create(
-            type=mtype[0],
+            id=mtype[0],
             label=mtype[1],
             description="reserved..."
         )
@@ -188,7 +201,7 @@ async def populate_constant():
     # populate platform type
     for ptype in DUMMY_PLATFORM_TYPE:
         await PlatformType.objects.create(
-            type=ptype[0],
+            id=ptype[0],
             label=ptype[1],
             description="reserved..."
         )
