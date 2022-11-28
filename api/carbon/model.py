@@ -5,6 +5,53 @@ import datetime as dt
 from typing import Optional, List, Union, Dict
 from .db import BaseMeta
 
+"""
+CONSTANT RELATED MODELS
+"""
+
+class StopType(ormar.Model):
+    class Meta(BaseMeta):
+        tablename = "stop_type"
+
+    # table columns
+    id: int = ormar.Integer(primary_key=True, autoincrement=False)
+    label: str = ormar.String(max_length=64)
+    description: str = ormar.String(max_length=255)
+
+    
+class PlatformType(ormar.Model):
+    class Meta(BaseMeta):
+        tablename = "platform_type"
+
+    # table columns
+    id: int = ormar.Integer(primary_key=True, autoincrement=False)
+    label: str = ormar.String(max_length=64)
+    description: str = ormar.String(max_length=255)
+
+
+class ModeType(ormar.Model):
+    class Meta(BaseMeta):
+        tablename = "mode_type"
+
+    # table columns
+    id: int = ormar.Integer(primary_key=True, autoincrement=False)
+    label: str = ormar.String(max_length=64)
+    description: str = ormar.String(max_length=255)
+
+
+class VehType(ormar.Model):
+    class Meta(BaseMeta):
+        tablename = "vehtype"
+
+    # table columns
+    id: int = ormar.Integer(primary_key=True, autoincrement=False)
+    label: str = ormar.String(max_length=64)
+    description: str = ormar.String(max_length=255)
+
+
+"""
+USER RELATED MODELS
+"""
 
 class Group(ormar.Model):
     class Meta(BaseMeta):
@@ -47,16 +94,9 @@ class Owner(ormar.Model):
     contact_email: str = ormar.String(max_length=128, nullable=False)
 
     
-class StopType(ormar.Model):
-    class Meta(BaseMeta):
-        tablename = "stop_type"
-
-    # table columns
-    id: int = ormar.Integer(primary_key=True)
-    type: int = ormar.Integer()
-    label: str = ormar.String(max_length=64)
-    description: str = ormar.String(max_length=255)
-
+"""
+STOP & ROUTE RELATED MODELS
+"""
 
 class Stop(ormar.Model):
     class Meta(BaseMeta):
@@ -73,17 +113,6 @@ class Stop(ormar.Model):
     # relationship columns put here
     type: Optional[Union[StopType, Dict]] = ormar.ForeignKey(StopType)    
 
-    
-class PlatformType(ormar.Model):
-    class Meta(BaseMeta):
-        tablename = "platform_type"
-
-    # table columns
-    id: int = ormar.Integer(primary_key=True)
-    type: int = ormar.Integer()
-    label: str = ormar.String(max_length=64)
-    description: str = ormar.String(max_length=255)
-
 
 class Platform(ormar.Model):
     class Meta(BaseMeta):
@@ -98,17 +127,6 @@ class Platform(ormar.Model):
     # relation
     stop_id: Optional[Union[Stop, Dict]] = ormar.ForeignKey(Stop)
     type: Optional[Union[PlatformType, Dict]] = ormar.ForeignKey(PlatformType)
-
-    
-class ModeType(ormar.Model):
-    class Meta(BaseMeta):
-        tablename = "mode_type"
-
-    # table columns
-    id: int = ormar.Integer(primary_key=True)
-    type: int = ormar.Integer()
-    label: str = ormar.String(max_length=64)
-    description: str = ormar.String(max_length=255)
 
 
 class Drive(ormar.Model):
@@ -141,16 +159,9 @@ class Stint(ormar.Model):
     type: Optional[Union[ModeType, Dict]] = ormar.ForeignKey(ModeType)
 
 
-class VehType(ormar.Model):
-    class Meta(BaseMeta):
-        tablename = "vehtype"
-
-    # table columns
-    id: int = ormar.Integer(primary_key=True)
-    type: int = ormar.Integer()
-    label: str = ormar.String(max_length=64)
-    description: str = ormar.String(max_length=255)
-
+"""
+VEHICLE RELATED MODELS
+"""
 
 class Tram(ormar.Model):
     class Meta(BaseMeta):
