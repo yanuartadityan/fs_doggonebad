@@ -10,4 +10,5 @@ engine = create_engine(url, echo=True)
 print(f'connecting to db:{url}')
 
 metadata.drop_all(bind=engine)
+metadata.create_all(bind=engine)
 

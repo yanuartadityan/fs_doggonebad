@@ -89,8 +89,21 @@ DUMMY_STOP = [
     ["JUR", "Jurang Mangu", 2],
     ["SDR","Sudimara", 2],
     ["SRP", "Serpong", 2],
-    ["TAB", "Tanah Abang", 2] 
+    ["TAB", "Tanah Abang", 2]
 ]
+
+DUMMY_VEH_TYPE = [
+    ['B4', '4-wheeler bus'],
+    ['B6S', '6-wheeler bus'],
+    ['B6L', '6-wheeler bus-long'],
+    ['B10', '10-wheeler bus'],
+    ['KRL', 'KRL'],
+    ['LRTS', 'LRT small'],
+    ['LRTL', 'LRT long carriage'],
+    ['MRT', 'MRT'],
+    ['KA', 'Kereta Api']
+]
+
 
 async def clean_all():
     await User.objects.delete(each=True)
@@ -137,6 +150,12 @@ async def populate_constant():
         )
 
     # populate vehicle class
+    for vtype in DUMMY_VEH_TYPE:
+        await VehType.objects.create(
+            label=vtype[0],
+            description=vtype[1]
+        )
+
 
 async def populate_users():
 

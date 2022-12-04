@@ -1,16 +1,15 @@
-import ormar
-import uuid
+"""model.py"""
 import datetime as dt
-
+import uuid
 from typing import Optional, List, Union, Dict
+import ormar
 from .db import BaseMeta
 
-"""
-CONSTANT RELATED MODELS
-"""
 
 class StopType(ormar.Model):
+    """StopType"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "stop_type"
 
     # table columns
@@ -18,9 +17,11 @@ class StopType(ormar.Model):
     label: str = ormar.String(max_length=64)
     description: str = ormar.String(max_length=255)
 
-    
+
 class PlatformType(ormar.Model):
+    """PlatformType"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "platform_type"
 
     # table columns
@@ -30,7 +31,9 @@ class PlatformType(ormar.Model):
 
 
 class ModeType(ormar.Model):
+    """ModeType"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "mode_type"
 
     # table columns
@@ -40,21 +43,21 @@ class ModeType(ormar.Model):
 
 
 class VehType(ormar.Model):
+    """VehType"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "vehtype"
 
     # table columns
-    id: int = ormar.Integer(primary_key=True, autoincrement=False)
+    id: int = ormar.Integer(primary_key=True)
     label: str = ormar.String(max_length=64)
     description: str = ormar.String(max_length=255)
 
 
-"""
-USER RELATED MODELS
-"""
-
 class Group(ormar.Model):
+    """Group"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "group"
 
     # table columns
@@ -65,7 +68,9 @@ class Group(ormar.Model):
     
 
 class User(ormar.Model):
+    """User"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "user"
 
     # table columns
@@ -82,7 +87,9 @@ class User(ormar.Model):
 
 
 class Owner(ormar.Model):
+    """Owner"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "owner"
 
     # table columns
@@ -94,12 +101,10 @@ class Owner(ormar.Model):
     contact_email: str = ormar.String(max_length=128, nullable=False)
 
     
-"""
-STOP & ROUTE RELATED MODELS
-"""
-
 class Stop(ormar.Model):
+    """Stop"""
     class Meta(BaseMeta):
+        """Metaclass"""
         __tablename__ = "stop"
 
     id: int = ormar.Integer(primary_key=True)
@@ -115,7 +120,9 @@ class Stop(ormar.Model):
 
 
 class Platform(ormar.Model):
+    """Platform"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "platform"
 
     # columns
@@ -130,7 +137,9 @@ class Platform(ormar.Model):
 
 
 class Drive(ormar.Model):
+    """Drive"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "drive"
 
     # columns
@@ -147,7 +156,9 @@ class Drive(ormar.Model):
 
 
 class Stint(ormar.Model):
+    """Stint"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "stint"
 
     # table columns
@@ -159,12 +170,10 @@ class Stint(ormar.Model):
     type: Optional[Union[ModeType, Dict]] = ormar.ForeignKey(ModeType)
 
 
-"""
-VEHICLE RELATED MODELS
-"""
-
 class Tram(ormar.Model):
+    """Tram"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "tram"
 
     # table columns
@@ -182,7 +191,9 @@ class Tram(ormar.Model):
 
 
 class Bus(ormar.Model):
+    """Bus"""
     class Meta(BaseMeta):
+        """Metaclass"""
         tablename = "bus"
 
     # table columns
