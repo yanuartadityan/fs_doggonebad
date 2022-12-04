@@ -89,10 +89,24 @@ DUMMY_STOP = [
     ["JUR", "Jurang Mangu", 2],
     ["SDR","Sudimara", 2],
     ["SRP", "Serpong", 2],
-    ["TAB", "Tanah Abang", 2] 
+    ["TAB", "Tanah Abang", 2]
 ]
 
+DUMMY_VEH_TYPE = [
+    ['B4', '4-wheeler bus'],
+    ['B6S', '6-wheeler bus'],
+    ['B6L', '6-wheeler bus-long'],
+    ['B10', '10-wheeler bus'],
+    ['KRL', 'KRL'],
+    ['LRTS', 'LRT small'],
+    ['LRTL', 'LRT long carriage'],
+    ['MRT', 'MRT'],
+    ['KA', 'Kereta Api']
+]
+
+
 async def clean_all():
+    """clean all entries in every tables"""
     await User.objects.delete(each=True)
     await Group.objects.delete(each=True)
     await Owner.objects.delete(each=True)
@@ -111,7 +125,8 @@ async def clean_all():
 
 
 async def populate_constant():
-    
+    """populate only constant tables"""
+
     # populate stop type
     for stype in DUMMY_STOP_TYPE:
         await StopType.objects.create(
@@ -137,8 +152,15 @@ async def populate_constant():
         )
 
     # populate vehicle class
+    for vtype in DUMMY_VEH_TYPE:
+        await VehType.objects.create(
+            label=vtype[0],
+            description=vtype[1]
+        )
+
 
 async def populate_users():
+    """populate user related tables"""
 
     # populate User
     for _ in range(20):
@@ -179,7 +201,8 @@ async def populate_users():
 
 
 async def populate_stops():
-    
+    """populate stop related tables"""
+
     # populate Stop
     for stop in DUMMY_STOP:
         # current stop
@@ -206,10 +229,12 @@ async def populate_stops():
 
 
 async def populate_vehicles():
-    pass
+    """populate vehicle related tables"""
+    print('populating vehicle tables')
 
 
 async def with_connect(function):
+    """connect to the database"""
     async with database:
         await function()
 

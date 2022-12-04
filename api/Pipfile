@@ -13,6 +13,7 @@ alembic = "==1.8.1"
 rich = "*"
 names = "*"
 carbon = {editable = true, path = "."}
+pylint = "*"
 
 [dev-packages]
 
