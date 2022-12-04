@@ -65,7 +65,7 @@ class Group(ormar.Model):
     uid: uuid.UUID = ormar.UUID(default=uuid.uuid4, uuid_format='hex', unique=True)
     group_name: str = ormar.String(max_length=128, nullable=False)
     is_max_reached: bool = ormar.Boolean(default=False)
-    
+
 
 class User(ormar.Model):
     """User"""
@@ -116,7 +116,7 @@ class Stop(ormar.Model):
     is_atm: bool = ormar.Boolean(default=False)
 
     # relationship columns put here
-    type: Optional[Union[StopType, Dict]] = ormar.ForeignKey(StopType)    
+    type: Optional[Union[StopType, Dict]] = ormar.ForeignKey(StopType)  
 
 
 class Platform(ormar.Model):
@@ -147,10 +147,14 @@ class Drive(ormar.Model):
     uid: uuid.UUID = ormar.UUID(default=uuid.uuid4, uuid_format='hex', unique=True)
 
     # relational
-    start_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(Stop, related_name="end_stop")
-    end_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(Stop, related_name="start_stop")
-    start_platform: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform, related_name="end_platform")
-    end_platform: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform, related_name="start_platform")
+    start_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(
+            Stop, related_name="end_stop")
+    end_stop: Optional[Union[Stop, Dict]] = ormar.ForeignKey(
+            Stop, related_name="start_stop")
+    start_platform: Optional[Union[Platform, Dict]] = ormar.ForeignKey(
+            Platform, related_name="end_platform")
+    end_platform: Optional[Union[Platform, Dict]] = ormar.ForeignKey(
+            Platform, related_name="start_platform")
     next_platform: Optional[Union[Platform, Dict]] = [ormar.ForeignKey(Platform)]
     type: Optional[Union[ModeType, Dict]] = ormar.ForeignKey(ModeType)
 
@@ -165,8 +169,10 @@ class Stint(ormar.Model):
     id: int = ormar.Integer(primary_key=True)
 
     # relational
-    platform_from: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform, related_name="platform_to")
-    platform_to: Optional[Union[Platform, Dict]] = ormar.ForeignKey(Platform, related_names="platform_from")
+    platform_from: Optional[Union[Platform, Dict]] = ormar.ForeignKey(
+            Platform, related_name="platform_to")
+    platform_to: Optional[Union[Platform, Dict]] = ormar.ForeignKey(
+            Platform, related_names="platform_from")
     type: Optional[Union[ModeType, Dict]] = ormar.ForeignKey(ModeType)
 
 

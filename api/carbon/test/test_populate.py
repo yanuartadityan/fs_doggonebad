@@ -1,9 +1,10 @@
+"""test_populate.py"""
 import asyncio
-import names
+import datetime as dt
 import hashlib
 import random
-import datetime as dt
 import uuid
+import names
 
 from carbon.db import database
 from carbon.model import User, Group, Owner
@@ -226,6 +227,9 @@ async def populate_stops():
             )
 
             await curr_platform.save()
+
+    # populate Stint
+
 
 
 async def populate_vehicles():
