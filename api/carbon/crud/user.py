@@ -1,8 +1,17 @@
 from typing import List
 from ..model import User, Group, Owner
 from ..db import database
-from ..main import app
+from fastapi import APIRouter
 
+router = APIRouter(
+    prefix="/users",
+    tags=["users"],
+    responses={
+        404: {
+            "description": "not found"
+        }
+    }
+)
 
 """
 create section:
@@ -17,8 +26,7 @@ get section:
  - get_owner
  - get_group
 """
-@app.get("/users/", response_model=List[User])
+@router.get("/get_all/", response_model=List[User])
 async def get_user():
     users = await User.objects.all()
-    
     return users

@@ -4,7 +4,7 @@ services:
   api:
     container_name: fastapi
     build: ./api
-    command: uvicorn carbon.main:app --host 0.0.0.0
+    command: uvicorn carbon.main:app --host 0.0.0.0 --reload
     volumes:
       - ./api:/app
     ports:
@@ -13,6 +13,7 @@ services:
       DATABASE_URL: postgresql://clinique:clinique@db/clinique_db
     depends_on:
       - db
+    restart: on-failure
 
   # Database
   db:
