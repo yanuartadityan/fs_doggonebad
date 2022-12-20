@@ -104,3 +104,10 @@ COPY . .
 
 `WORKDIR` is specified into `/app` directory inside the container. Hence, all dockerfile operations following this command, will use the `WORKDIR` as relative path :).
 
+## To-Do
+
+Some lists of to-do:
+
+* Create CI/CD template, probably with Gitlab
+* 100% code linting, probably with Black. Should be part of point above.
+* 100% coverage test. Should be part of point 1.
