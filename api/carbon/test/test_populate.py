@@ -4,12 +4,22 @@ import datetime as dt
 import hashlib
 import random
 import uuid
-import names
 
+import names
 from carbon.db import database
-from carbon.model import User, Group, Owner
-from carbon.model import Stop, Platform, Stint, ModeType, PlatformType, StopType
-from carbon.model import Bus, Tram, VehType, Drive
+from carbon.model import Bus
+from carbon.model import Drive
+from carbon.model import Group
+from carbon.model import ModeType
+from carbon.model import Owner
+from carbon.model import Platform
+from carbon.model import PlatformType
+from carbon.model import Stint
+from carbon.model import Stop
+from carbon.model import StopType
+from carbon.model import Tram
+from carbon.model import User
+from carbon.model import VehType
 
 
 DUMMY_DOMAIN = [
@@ -19,14 +29,14 @@ DUMMY_DOMAIN = [
     "aio.com",
     "bing.com",
     "outlook.com",
-    "microsoft.com"
+    "microsoft.com",
 ]
 
 DUMMY_COMPANY = [
     ["jaya lestari", "ID-5535-ABCD-EFGH", "031-456789-03", "co.id"],
     ["sumber kencono", "ID-P354-XXYY-MNBC", "031-352773-88", "com"],
     ["lrt jaksel", "JKT-7732-B7UJ-ABCD", "021-9985127-012", "gov.id"],
-    ["burung biru", "JKT-1827-BLAS-KA9J", "021-6628361-028", "com"]
+    ["burung biru", "JKT-1827-BLAS-KA9J", "021-6628361-028", "com"],
 ]
 
 DUMMY_GROUP = [
@@ -36,7 +46,7 @@ DUMMY_GROUP = [
     "BSD-Bicycle-Club",
     "Kuningan Royal Elite",
     "Permata Commuter Club",
-    "Senior Club"
+    "Senior Club",
 ]
 
 DUMMY_STOP_TYPE = [
@@ -55,8 +65,7 @@ DUMMY_STOP_TYPE = [
     [13, "Reserved"],
     [14, "Reserved"],
     [15, "Reserved"],
-    [16, "Reserved"]
-
+    [16, "Reserved"],
 ]
 
 DUMMY_MODE_TYPE = [
@@ -71,7 +80,7 @@ DUMMY_PLATFORM_TYPE = [
     [2, "Underground"],
     [4, "Multi-Stories"],
     [8, "Reserved"],
-    [16, "Reserved"]
+    [16, "Reserved"],
 ]
 
 DUMMY_STOP = [
@@ -88,21 +97,21 @@ DUMMY_STOP = [
     ["CDG", "Ciledug", 2],
     ["BIN", "Bintaro", 2],
     ["JUR", "Jurang Mangu", 2],
-    ["SDR","Sudimara", 2],
+    ["SDR", "Sudimara", 2],
     ["SRP", "Serpong", 2],
-    ["TAB", "Tanah Abang", 2]
+    ["TAB", "Tanah Abang", 2],
 ]
 
 DUMMY_VEH_TYPE = [
-    ['B4', '4-wheeler bus'],
-    ['B6S', '6-wheeler bus'],
-    ['B6L', '6-wheeler bus-long'],
-    ['B10', '10-wheeler bus'],
-    ['KRL', 'KRL'],
-    ['LRTS', 'LRT small'],
-    ['LRTL', 'LRT long carriage'],
-    ['MRT', 'MRT'],
-    ['KA', 'Kereta Api']
+    ["B4", "4-wheeler bus"],
+    ["B6S", "6-wheeler bus"],
+    ["B6L", "6-wheeler bus-long"],
+    ["B10", "10-wheeler bus"],
+    ["KRL", "KRL"],
+    ["LRTS", "LRT small"],
+    ["LRTL", "LRT long carriage"],
+    ["MRT", "MRT"],
+    ["KA", "Kereta Api"],
 ]
 
 
@@ -131,33 +140,24 @@ async def populate_constant():
     # populate stop type
     for stype in DUMMY_STOP_TYPE:
         await StopType.objects.create(
-            id=stype[0],
-            label=stype[1],
-            description="reserved..."
+            id=stype[0], label=stype[1], description="reserved..."
         )
 
     # populate mode type
     for mtype in DUMMY_MODE_TYPE:
         await ModeType.objects.create(
-            id=mtype[0],
-            label=mtype[1],
-            description="reserved..."
+            id=mtype[0], label=mtype[1], description="reserved..."
         )
 
     # populate platform type
     for ptype in DUMMY_PLATFORM_TYPE:
         await PlatformType.objects.create(
-            id=ptype[0],
-            label=ptype[1],
-            description="reserved..."
+            id=ptype[0], label=ptype[1], description="reserved..."
         )
 
     # populate vehicle class
     for vtype in DUMMY_VEH_TYPE:
-        await VehType.objects.create(
-            label=vtype[0],
-            description=vtype[1]
-        )
+        await VehType.objects.create(label=vtype[0], description=vtype[1])
 
 
 async def populate_users():
@@ -167,38 +167,35 @@ async def populate_users():
     for _ in range(20):
         firstname = names.get_first_name()
         lastname = names.get_last_name()
-        username = '.'.join([firstname, lastname]).lower()
+        username = ".".join([firstname, lastname]).lower()
 
         domain = random.choice(DUMMY_DOMAIN)
-        email = '@'.join([username, domain])
+        email = "@".join([username, domain])
 
         await User.objects.create(
             username=username,
             email=email,
             # simply hash the username to get dummy pass
-            password=hashlib.md5(username.encode('utf-8')).hexdigest(),
-            date_created=dt.datetime.now()
+            password=hashlib.md5(username.encode("utf-8")).hexdigest(),
+            date_created=dt.datetime.now(),
         )
 
     # populate Owner
     for company in DUMMY_COMPANY:
-        contact = '.'.join([names.get_first_name(), names.get_last_name()]).lower()
-        domain = company[0].replace(' ', '') + f'.{company[3]}'
+        contact = ".".join([names.get_first_name(), names.get_last_name()]).lower()
+        domain = company[0].replace(" ", "") + f".{company[3]}"
 
         await Owner.objects.create(
             uid=uuid.uuid4(),
             company_name=company[0].upper(),
             company_reg=company[1],
             contact_number=company[2],
-            contact_email='@'.join([contact, domain])
+            contact_email="@".join([contact, domain]),
         )
 
     # populate Group
     for group in DUMMY_GROUP:
-        await Group.objects.create(
-            uid=uuid.uuid4(),
-            group_name=group
-        )
+        await Group.objects.create(uid=uuid.uuid4(), group_name=group)
 
 
 async def populate_stops():
@@ -211,7 +208,7 @@ async def populate_stops():
             initial=stop[0],
             name=stop[1],
             gps_lat=random.uniform(-6.8, -5.4),
-            gps_lon=random.uniform(104.0, 110.0)
+            gps_lon=random.uniform(104.0, 110.0),
         )
 
         # save the stop (update database)
@@ -223,7 +220,7 @@ async def populate_stops():
                 initial=f"{stop[0]}_{plat_idx}",
                 is_disabled_friendly=random.choice([True, False]),
                 is_canopy=random.choice([True, False]),
-                stop_id=curr_stop
+                stop_id=curr_stop,
             )
 
             await curr_platform.save()
@@ -231,10 +228,9 @@ async def populate_stops():
     # populate Stint
 
 
-
 async def populate_vehicles():
     """populate vehicle related tables"""
-    print('populating vehicle tables')
+    print("populating vehicle tables")
 
 
 async def with_connect(function):

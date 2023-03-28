@@ -50,9 +50,28 @@ services:
       - "8080:80"
     restart: always
 
+  # Gitlab
+  gitlab:
+    container_name: gitlab
+    image: gitlab/gitlab-ee:latest
+    restart: always
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://localhost'
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - "8089:80"
+      - "8443:443"
+      - "22:22"
+    volumes:
+      - gitlab-config:/etc/gitlab
+      - gitlab-logs:/var/log/gitlab
+      - gitlab-data:/var/opt/gitlab
 
 # Persistent Storage
 volumes:
   postgres_data:
   pgadmin-data:
-
+  gitlab-config:
+  gitlab-logs:
+  gitlab-data:
