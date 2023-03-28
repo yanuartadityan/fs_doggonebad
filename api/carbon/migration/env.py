@@ -1,10 +1,11 @@
 import os
 from logging.config import fileConfig
-from sqlalchemy import create_engine
-from alembic import context
-from carbon.db import metadata, get_db_url
 
+from alembic import context
+from carbon.db import get_db_url
+from carbon.db import metadata
 from carbon.model import *
+from sqlalchemy import create_engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -25,6 +26,7 @@ target_metadata = metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
@@ -60,9 +62,7 @@ def run_migrations_online() -> None:
     connectable = create_engine(get_db_url())
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

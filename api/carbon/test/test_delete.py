@@ -10,6 +10,7 @@ async def clean_constant():
     await PlatformType.objects.delete(each=True)
     await StopType.objects.delete(each=True)
 
+
 async def clean_tables():
     await User.objects.delete(each=True)
     await Group.objects.delete(each=True)
@@ -28,10 +29,7 @@ async def with_connect(function):
     async with database:
         await function()
 
-        
-for func in [
-    clean_constant,
-    clean_tables
-]:
+
+for func in [clean_constant, clean_tables]:
     print(f"executing {func.__name__}")
     asyncio.run(with_connect(func))
